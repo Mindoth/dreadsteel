@@ -2,43 +2,43 @@ package net.mindoth.dreadsteel.entity;
 
 import net.mindoth.dreadsteel.config.DreadsteelCommonConfig;
 import net.mindoth.dreadsteel.registries.DreadsteelEntities;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.IPacket;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.network.FMLPlayMessages;
+import net.minecraftforge.fml.network.NetworkHooks;
 
-public class EntityScytheProjectileBronze extends AbstractArrow {
+public class EntityScytheProjectileBronze extends AbstractArrowEntity {
 
-    public EntityScytheProjectileBronze(EntityType<? extends AbstractArrow> type, Level LevelIn) {
-        super(type, LevelIn);
+    public EntityScytheProjectileBronze(EntityType<? extends AbstractArrowEntity> type, World worldIn) {
+        super(type, worldIn);
         this.setBaseDamage(DreadsteelCommonConfig.SCYTHE_DAMAGE.get());
     }
 
-    public EntityScytheProjectileBronze(EntityType<? extends AbstractArrow> type, Level LevelIn, double x, double y, double z,
+    public EntityScytheProjectileBronze(EntityType<? extends AbstractArrowEntity> type, World worldIn, double x, double y, double z,
                                          float r, float g, float b) {
-        this(type, LevelIn);
+        this(type, worldIn);
         this.setPos(x, y, z);
         this.setBaseDamage(DreadsteelCommonConfig.SCYTHE_DAMAGE.get());
     }
 
-    public EntityScytheProjectileBronze(EntityType<? extends AbstractArrow> type, Level LevelIn, LivingEntity shooter, double dmg) {
-        super(type, shooter, LevelIn);
+    public EntityScytheProjectileBronze(EntityType<? extends AbstractArrowEntity> type, World worldIn, LivingEntity shooter, double dmg) {
+        super(type, shooter, worldIn);
         this.setBaseDamage(dmg);
     }
 
-    public EntityScytheProjectileBronze(PlayMessages.SpawnEntity spawnEntity, Level LevelIn) {
-        this(DreadsteelEntities.SCYTHE_PROJECTILE_BRONZE.get(), LevelIn);
+    public EntityScytheProjectileBronze(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
+        this(DreadsteelEntities.SCYTHE_PROJECTILE_BRONZE.get(), worldIn);
     }
 
     @Override
@@ -54,12 +54,22 @@ public class EntityScytheProjectileBronze extends AbstractArrow {
     @Override
     public void tick() {
         super.tick();
-
-        if ( this.tickCount > 5 ) {
-            spawnParticles();
-            this.playSound(SoundEvents.ILLUSIONER_MIRROR_MOVE, 1, 1);
-            this.discard();
+/*
+        double motionX = getDeltaMovement().x();
+        double motionY = getDeltaMovement().y();
+        double motionZ = getDeltaMovement().z();
+*/
+        if ( this.tickCount > 5 )
+        {
+            //Particles
+            for (int i = 0; i < 8; ++i) {
+                this.level.addParticle(ParticleTypes.FLAME, this.getX(), this.getY() + 0.5f, this.getZ(), (this.random.nextDouble() - 0.5D) * 1.5D, -this.random.nextDouble() + 1, (this.random.nextDouble() - 0.5D) * 1.5D);
+            }
+            this.level.playSound(null, this.getX(), this.getY(), this.getZ(),
+                    SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundCategory.PLAYERS, 1, 1);
+            this.remove();
         }
+
     }
 
     @Override
@@ -73,30 +83,22 @@ public class EntityScytheProjectileBronze extends AbstractArrow {
     }
 
     @Override
-    protected void onHit(HitResult result) {
-        Entity thrower = getOwner();
-        if (level.isClientSide || result.getType() == HitResult.Type.ENTITY && ((EntityHitResult) result).getEntity() == thrower) {
-            return;
-        }
-
-        if (result.getType() == HitResult.Type.ENTITY && ((EntityHitResult) result).getEntity() instanceof Mob entity) {
-            if (entity != this.getOwner()) {
-                entity.hurt(DamageSource.indirectMagic(this, this.getOwner()).bypassArmor().bypassMagic(), (float)this.getBaseDamage());
-            }
-        }
-
-        if (result.getType() == HitResult.Type.BLOCK) {
-            spawnParticles();
-            this.playSound(SoundEvents.ILLUSIONER_MIRROR_MOVE, 1, 1);
-            this.discard();
+    protected void onHitEntity(EntityRayTraceResult result) {
+        Entity entity = result.getEntity();
+        if ( entity instanceof LivingEntity && entity != this.getOwner() ) {
+            entity.hurt(DamageSource.indirectMagic(this, this.getOwner()).bypassArmor().bypassMagic(), (float)this.getBaseDamage());
         }
     }
 
-    private void spawnParticles() {
+    @Override
+    protected void onHitBlock(BlockRayTraceResult result) {
         //Particles
         for (int i = 0; i < 8; ++i) {
             this.level.addParticle(ParticleTypes.FLAME, this.getX(), this.getY() + 0.5f, this.getZ(), (this.random.nextDouble() - 0.5D) * 1.5D, -this.random.nextDouble() + 1, (this.random.nextDouble() - 0.5D) * 1.5D);
         }
+        this.level.playSound(null, this.getX(), this.getY(), this.getZ(),
+                SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundCategory.PLAYERS, 1, 1);
+        this.remove();
     }
 
     @Override
@@ -105,7 +107,7 @@ public class EntityScytheProjectileBronze extends AbstractArrow {
     }
 
     @Override
-    public Packet getAddEntityPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }
