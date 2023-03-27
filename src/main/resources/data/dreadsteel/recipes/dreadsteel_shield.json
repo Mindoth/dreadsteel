@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "DHD",
+    " D "
+  ],
+
+  "key": {
+    "D": {
+      "item": "dreadsteel:dreadsteel_ingot"
+    },
+    "H": {
+      "item": "iceandfire:witherbone"
+    }
+  },
+
+  "result": {
+    "item": "dreadsteel:dreadsteel_shield",
+    "count": 1
+  }
+}

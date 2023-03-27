@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " DW",
+    " DS",
+    "H  "
+  ],
+
+  "key": {
+    "H": {
+      "item": "iceandfire:witherbone"
+    },
+    "D": {
+      "item": "dreadsteel:dreadsteel_ingot"
+    },
+    "W": {
+      "item": "minecraft:wither_skeleton_skull"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
+    }
+  },
+
+  "result": {
+    "item": "dreadsteel:dreadsteel_scythe",
+    "count": 1
+  }
+}

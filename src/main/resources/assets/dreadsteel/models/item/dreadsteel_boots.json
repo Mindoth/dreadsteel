@@ -1,0 +1,11 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "dreadsteel:item/dreadsteel_boots_default"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 1}, "model": "dreadsteel:item/dreadsteel_boots_white" },
+    { "predicate": { "custom_model_data": 2}, "model": "dreadsteel:item/dreadsteel_boots_black" },
+    { "predicate": { "custom_model_data": 3}, "model": "dreadsteel:item/dreadsteel_boots_bronze" }
+  ]
+}

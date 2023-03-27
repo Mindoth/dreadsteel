@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "dreadsteel:item/dreadsteel_scythe_projectile_white"
+  }
+}

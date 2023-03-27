@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "FIL",
+    "DDD"
+  ],
+
+  "key": {
+    "D": {
+      "item": "iceandfire:dread_shard"
+    },
+    "F": {
+      "item": "iceandfire:dragonsteel_fire_ingot"
+    },
+    "I": {
+      "item": "iceandfire:dragonsteel_ice_ingot"
+    },
+    "L": {
+      "item": "iceandfire:dragonsteel_lightning_ingot"
+    }
+  },
+
+  "result": {
+    "item": "dreadsteel:dreadsteel_ingot",
+    "count": 3
+  }
+}
