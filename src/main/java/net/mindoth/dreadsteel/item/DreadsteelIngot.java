@@ -1,6 +1,7 @@
 package net.mindoth.dreadsteel.item;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -19,7 +20,7 @@ public class DreadsteelIngot extends Item {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("tooltip.dreadsteel.dreadsteel_ingot"));
+        tooltip.add(new TranslatableComponent("tooltip.dreadsteel.dreadsteel_ingot"));
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
 }

@@ -4,12 +4,13 @@ import net.mindoth.dreadsteel.config.DreadsteelCommonConfig;
 import net.mindoth.dreadsteel.message.MessageSwingArm;
 import net.mindoth.dreadsteel.registries.DreadsteelEntities;
 import net.mindoth.dreadsteel.registries.DreadsteelItems;
+import net.mindoth.dreadsteel.util.ClientProxy;
+import net.mindoth.dreadsteel.util.ServerProxy;
+import net.mindoth.dreadsteel.util.SidedProxy;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -42,25 +43,6 @@ public class Dreadsteel {
     private void addRegistries(final IEventBus modEventBus) {
         DreadsteelItems.ITEMS.register(modEventBus);
         DreadsteelEntities.ENTITIES.register(modEventBus);
-        modEventBus.addListener(this::addCreative);
-    }
-
-    private void addCreative(CreativeModeTabEvent.BuildContents event) {
-        if(event.getTab() == CreativeModeTabs.COMBAT) {
-            event.accept(DreadsteelItems.DREADSTEEL_HELMET);
-            event.accept(DreadsteelItems.DREADSTEEL_CHESTPLATE);
-            event.accept(DreadsteelItems.DREADSTEEL_LEGGINGS);
-            event.accept(DreadsteelItems.DREADSTEEL_BOOTS);
-            event.accept(DreadsteelItems.DREADSTEEL_SCYTHE);
-            event.accept(DreadsteelItems.DREADSTEEL_SHIELD);
-        }
-        if(event.getTab() == CreativeModeTabs.COMBAT) {
-            event.accept(DreadsteelItems.DREADSTEEL_INGOT);
-            event.accept(DreadsteelItems.DEFAULT_KIT);
-            event.accept(DreadsteelItems.WHITE_KIT);
-            event.accept(DreadsteelItems.BLACK_KIT);
-            event.accept(DreadsteelItems.BRONZE_KIT);
-        }
     }
 
     static {

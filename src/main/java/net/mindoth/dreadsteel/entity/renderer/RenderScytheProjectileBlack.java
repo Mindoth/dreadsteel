@@ -1,7 +1,8 @@
 package net.mindoth.dreadsteel.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.mindoth.dreadsteel.entity.EntityScytheProjectileBlack;
 import net.mindoth.dreadsteel.registries.DreadsteelItems;
 import net.minecraft.client.Minecraft;
@@ -30,12 +31,12 @@ public class RenderScytheProjectileBlack extends EntityRenderer<EntityScytheProj
     @Override
     public void render(EntityScytheProjectileBlack entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
-        matrixStackIn.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) - 90.0F));
-        matrixStackIn.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot())));
+        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) - 90.0F));
+        matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot())));
         matrixStackIn.translate(0, 0.5F, 0);
         matrixStackIn.scale(2F, 2F, 2F);
-        //matrixStackIn.mulPose(new Quaternion(Vector3f.YP, 0F, true));
-        //matrixStackIn.mulPose(new Quaternion(Vector3f.ZN, (entityIn.tickCount + partialTicks) * 30F, true));
+        matrixStackIn.mulPose(new Quaternion(Vector3f.YP, 0F, true));
+        matrixStackIn.mulPose(new Quaternion(Vector3f.ZN, (entityIn.tickCount + partialTicks) * 30F, true));
         matrixStackIn.translate(0, -0.15F, 0);
         Minecraft.getInstance().getItemRenderer().renderStatic(PROJECTILE, ItemTransforms.TransformType.GROUND, 240, 0, matrixStackIn, bufferIn, 0);
         matrixStackIn.popPose();

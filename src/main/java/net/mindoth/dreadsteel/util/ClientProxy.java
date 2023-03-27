@@ -11,12 +11,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientProxy implements SidedProxy {
@@ -42,7 +44,7 @@ public class ClientProxy implements SidedProxy {
     public void openCodexGui() {
     }
 
-    /*public static void registerISTER(Consumer<IItemRenderProperties> consumer, BiFunction<BlockEntityRenderDispatcher, EntityModelSet, BlockEntityWithoutLevelRenderer> factory) {
+    public static void registerISTER(Consumer<IItemRenderProperties> consumer, BiFunction<BlockEntityRenderDispatcher, EntityModelSet, BlockEntityWithoutLevelRenderer> factory) {
         consumer.accept(new IItemRenderProperties() {
             final NonNullLazy<BlockEntityWithoutLevelRenderer> renderer = NonNullLazy.of(
                     () -> factory.apply(Minecraft.getInstance().getBlockEntityRenderDispatcher(),
@@ -53,7 +55,7 @@ public class ClientProxy implements SidedProxy {
                 return renderer.get();
             }
         });
-    }*/
+    }
 
     @SubscribeEvent
     public static void layerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {

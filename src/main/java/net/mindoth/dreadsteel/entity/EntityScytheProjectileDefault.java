@@ -105,7 +105,7 @@ public class EntityScytheProjectileDefault extends AbstractArrow {
     }
 
     @Override
-    public Packet getAddEntityPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

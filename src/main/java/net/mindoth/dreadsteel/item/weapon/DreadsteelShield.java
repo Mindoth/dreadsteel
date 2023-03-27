@@ -4,6 +4,7 @@ import net.mindoth.dreadsteel.Dreadsteel;
 import net.mindoth.dreadsteel.registries.DreadsteelItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,7 +28,7 @@ import java.util.List;
 public class DreadsteelShield extends ShieldItem {
 
     public DreadsteelShield() {
-        super(new Properties().durability(0).fireResistant());
+        super(new Properties().durability(0).tab(CreativeModeTab.TAB_COMBAT).fireResistant());
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSE_ITEM_BEHAVIOR);
     }
 
@@ -44,14 +45,14 @@ public class DreadsteelShield extends ShieldItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("tooltip.dreadsteel.dreadsteel_shield"));
+        tooltip.add(new TranslatableComponent("tooltip.dreadsteel.dreadsteel_shield"));
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
 
     @SubscribeEvent
     public static void onArrowHit(final LivingAttackEvent event) {
-        if ( event.getEntity() instanceof Player) {
-            Player player = (Player)event.getEntity();
+        if ( event.getEntityLiving() instanceof Player) {
+            Player player = (Player)event.getEntityLiving();
             Level world = player.level;
             //Check if Shield is blocking
             if ( player.isBlocking() && player.getUseItem().getItem() == DreadsteelItems.DREADSTEEL_SHIELD.get() ) {

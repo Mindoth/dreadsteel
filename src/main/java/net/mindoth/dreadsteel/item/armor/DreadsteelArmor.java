@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -25,21 +26,19 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = Dreadsteel.MOD_ID)
@@ -48,7 +47,7 @@ public class DreadsteelArmor extends ArmorItem {
     public static final Map<String, UUID> NAME_UUID_MAP = new HashMap<>();
 
     public static UUID getUUID(ItemStack stack) {
-        return NAME_UUID_MAP.computeIfAbsent(ForgeRegistries.ITEMS.getKey(stack.getItem()).toString(), s -> UUID.nameUUIDFromBytes(s.getBytes()));
+        return NAME_UUID_MAP.computeIfAbsent(stack.getItem().getRegistryName().toString(), s -> UUID.nameUUIDFromBytes(s.getBytes()));
     }
 
     @SubscribeEvent
@@ -58,54 +57,54 @@ public class DreadsteelArmor extends ArmorItem {
 
         if ( item == DreadsteelItems.DREADSTEEL_HELMET.get() && event.getSlotType() == EquipmentSlot.HEAD ) {
             event.addModifier(Attributes.ARMOR, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_armor", DreadsteelCommonConfig.HELMET_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_armor", DreadsteelCommonConfig.HELMET_ARMOR.get(), AttributeModifier.Operation.ADDITION));
             event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
             event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
         }
         if ( item == DreadsteelItems.DREADSTEEL_CHESTPLATE.get() && event.getSlotType() == EquipmentSlot.CHEST ) {
             event.addModifier(Attributes.ARMOR, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_armor", DreadsteelCommonConfig.CHESTPLATE_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_armor", DreadsteelCommonConfig.CHESTPLATE_ARMOR.get(), AttributeModifier.Operation.ADDITION));
             event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
             event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
         }
         if ( item == DreadsteelItems.DREADSTEEL_LEGGINGS.get() && event.getSlotType() == EquipmentSlot.LEGS ) {
             event.addModifier(Attributes.ARMOR, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_armor", DreadsteelCommonConfig.LEGGINGS_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_armor", DreadsteelCommonConfig.LEGGINGS_ARMOR.get(), AttributeModifier.Operation.ADDITION));
             event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
             event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
         }
         if ( item == DreadsteelItems.DREADSTEEL_BOOTS.get() && event.getSlotType() == EquipmentSlot.FEET ) {
             event.addModifier(Attributes.ARMOR, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_armor", DreadsteelCommonConfig.BOOTS_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_armor", DreadsteelCommonConfig.BOOTS_ARMOR.get(), AttributeModifier.Operation.ADDITION));
             event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
             event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
-                    DreadsteelArmor.getUUID(event.getItemStack()), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
         }
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("tooltip.dreadsteel.dreadsteel_setbonus"));
+        tooltip.add(new TranslatableComponent("tooltip.dreadsteel.dreadsteel_setbonus"));
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    public void initializeClient(java.util.function.Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
 
-        consumer.accept(new IClientItemExtensions() {
+        consumer.accept(new IItemRenderProperties() {
             static DreadsteelModel model;
 
             @Override
-            public DreadsteelModel getHumanoidArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default) {
+            public DreadsteelModel getArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default) {
                 if (model == null) model = new DreadsteelModel(Minecraft.getInstance().getEntityModels().bakeLayer(ClientProxy.DREADSTEEL_ARMOR_LAYER));
                 float pticks = Minecraft.getInstance().getFrameTime();
                 float f = Mth.rotLerp(pticks, entity.yBodyRotO, entity.yBodyRot);
@@ -153,7 +152,7 @@ public class DreadsteelArmor extends ArmorItem {
 
     @SubscribeEvent
     public static void noHat(final RenderPlayerEvent event) {
-        Player player = event.getEntity();
+        Player player = event.getPlayer();
         if ( player.getItemBySlot(EquipmentSlot.HEAD).getItem() == DreadsteelItems.DREADSTEEL_HELMET.get() ) {
             event.getRenderer().getModel().hat.visible = false;
         }
@@ -161,7 +160,7 @@ public class DreadsteelArmor extends ArmorItem {
 
     @SubscribeEvent
     public static void dreadsteelSetDefence(final LivingAttackEvent event) {
-        LivingEntity entity = event.getEntity();
+        LivingEntity entity = event.getEntityLiving();
         if ( entity.getItemBySlot(EquipmentSlot.HEAD).getItem() == DreadsteelItems.DREADSTEEL_HELMET.get() &&
                 entity.getItemBySlot(EquipmentSlot.CHEST).getItem() == DreadsteelItems.DREADSTEEL_CHESTPLATE.get() &&
                 entity.getItemBySlot(EquipmentSlot.LEGS).getItem() == DreadsteelItems.DREADSTEEL_LEGGINGS.get() &&
@@ -175,12 +174,12 @@ public class DreadsteelArmor extends ArmorItem {
 
     @SubscribeEvent
     public static void onPlayerUseArmorItem(final PlayerInteractEvent.RightClickItem event) {
-        ItemStack headStack = event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
-        ItemStack chestStack = event.getEntity().getItemBySlot(EquipmentSlot.CHEST);
-        ItemStack legsStack = event.getEntity().getItemBySlot(EquipmentSlot.LEGS);
-        ItemStack feetStack = event.getEntity().getItemBySlot(EquipmentSlot.FEET);
-        ItemStack mainStack = event.getEntity().getItemBySlot(EquipmentSlot.MAINHAND);
-        ItemStack offStack = event.getEntity().getItemBySlot(EquipmentSlot.OFFHAND);
+        ItemStack headStack = event.getPlayer().getItemBySlot(EquipmentSlot.HEAD);
+        ItemStack chestStack = event.getPlayer().getItemBySlot(EquipmentSlot.CHEST);
+        ItemStack legsStack = event.getPlayer().getItemBySlot(EquipmentSlot.LEGS);
+        ItemStack feetStack = event.getPlayer().getItemBySlot(EquipmentSlot.FEET);
+        ItemStack mainStack = event.getPlayer().getItemBySlot(EquipmentSlot.MAINHAND);
+        ItemStack offStack = event.getPlayer().getItemBySlot(EquipmentSlot.OFFHAND);
         //White
         if ( event.getItemStack().getItem().equals(DreadsteelItems.WHITE_KIT.get()) ) {
             if ( headStack.getItem().equals(DreadsteelItems.DREADSTEEL_HELMET.get()) ) {
@@ -223,10 +222,10 @@ public class DreadsteelArmor extends ArmorItem {
                 tag.putInt("CustomModelData", 1);
                 offStack.setTag(tag);
             }
-            if (!event.getEntity().isCreative()) {
+            if (!event.getPlayer().isCreative()) {
                 event.getItemStack().shrink(1);
             }
-            event.getEntity().playNotifySound(SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1, 1);
+            event.getPlayer().playNotifySound(SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1, 1);
         }
         //Black
         if ( event.getItemStack().getItem().equals(DreadsteelItems.BLACK_KIT.get()) ) {
@@ -270,10 +269,10 @@ public class DreadsteelArmor extends ArmorItem {
                 tag.putInt("CustomModelData", 2);
                 offStack.setTag(tag);
             }
-            if (!event.getEntity().isCreative()) {
+            if (!event.getPlayer().isCreative()) {
                 event.getItemStack().shrink(1);
             }
-            event.getEntity().playNotifySound(SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1, 1);
+            event.getPlayer().playNotifySound(SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1, 1);
         }
         //Bronze
         if ( event.getItemStack().getItem().equals(DreadsteelItems.BRONZE_KIT.get()) ) {
@@ -317,10 +316,10 @@ public class DreadsteelArmor extends ArmorItem {
                 tag.putInt("CustomModelData", 3);
                 offStack.setTag(tag);
             }
-            if (!event.getEntity().isCreative()) {
+            if (!event.getPlayer().isCreative()) {
                 event.getItemStack().shrink(1);
             }
-            event.getEntity().playNotifySound(SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1, 1);
+            event.getPlayer().playNotifySound(SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1, 1);
         }
         //Default
         if ( event.getItemStack().getItem().equals(DreadsteelItems.DEFAULT_KIT.get()) ) {
@@ -348,16 +347,16 @@ public class DreadsteelArmor extends ArmorItem {
             if ( offStack.getItem().equals(DreadsteelItems.DREADSTEEL_SHIELD.get()) ) {
                 offStack.removeTagKey("CustomModelData");
             }
-            if (!event.getEntity().isCreative()) {
+            if (!event.getPlayer().isCreative()) {
                 event.getItemStack().shrink(1);
             }
-            event.getEntity().playNotifySound(SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1, 1);
+            event.getPlayer().playNotifySound(SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1, 1);
         }
     }
     public enum MaterialDreadsteel implements ArmorMaterial {
 
         DREADSTEEL("dreadsteel", 0, new int[] { 0, 0, 0, 0 }, 25, SoundEvents.ARMOR_EQUIP_NETHERITE,
-                0, 0, () -> {
+                0, 0F, () -> {
             return Ingredient.of(DreadsteelItems.DREADSTEEL_INGOT.get());
         });
 

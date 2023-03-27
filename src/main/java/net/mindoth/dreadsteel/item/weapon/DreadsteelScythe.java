@@ -1,6 +1,8 @@
 package net.mindoth.dreadsteel.item.weapon;
 
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.mojang.math.Vector3f;
 import net.mindoth.dreadsteel.Dreadsteel;
 import net.mindoth.dreadsteel.config.DreadsteelCommonConfig;
 import net.mindoth.dreadsteel.entity.EntityScytheProjectileBlack;
@@ -12,6 +14,7 @@ import net.mindoth.dreadsteel.entity.EntityScytheProjectileDefault;
 import net.mindoth.dreadsteel.registries.DreadsteelItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -29,7 +32,6 @@ import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -57,14 +59,14 @@ public class DreadsteelScythe extends SwordItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("tooltip.dreadsteel.dreadsteel_scythe"));
+        tooltip.add(new TranslatableComponent("tooltip.dreadsteel.dreadsteel_scythe"));
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
 
     @SubscribeEvent
     public static void onPlayerLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
-        onLeftClick(event.getEntity(), event.getItemStack());
-        if (event.getLevel().isClientSide) {
+        onLeftClick(event.getPlayer(), event.getItemStack());
+        if (event.getWorld().isClientSide) {
             Dreadsteel.sendMSGToServer(new MessageSwingArm());
         }
     }
@@ -89,31 +91,31 @@ public class DreadsteelScythe extends SwordItem {
             if ( tag.contains("CustomModelData") ) {
                 if ( tag.getInt("CustomModelData") == 1 ) {
                     EntityScytheProjectileWhite shot = new EntityScytheProjectileWhite(DreadsteelEntities.SCYTHE_PROJECTILE_WHITE.get(), player.level, player, totalDmg);
-                    //Vec3 vector3d = player.getLookAngle();
-                    //Vector3f vector3f = new Vector3f(vector3d);
-                    shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 0.5F);
+                    Vec3 vector3d = player.getLookAngle();
+                    Vector3f vector3f = new Vector3f(vector3d);
+                    shot.shoot(vector3f.x(), vector3f.y(), vector3f.z(), 2.0F, 0.5F);
                     player.level.addFreshEntity(shot);
                 }
                 if ( tag.getInt("CustomModelData") == 2 ) {
                     EntityScytheProjectileBlack shot = new EntityScytheProjectileBlack(DreadsteelEntities.SCYTHE_PROJECTILE_BLACK.get(), player.level, player, totalDmg);
-                    //Vec3 vector3d = player.getLookAngle();
-                    //Vector3f vector3f = new Vector3f(vector3d);
-                    shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.0F, 0.5F);
+                    Vec3 vector3d = player.getLookAngle();
+                    Vector3f vector3f = new Vector3f(vector3d);
+                    shot.shoot(vector3f.x(), vector3f.y(), vector3f.z(), 2.0F, 0.5F);
                     player.level.addFreshEntity(shot);
                 }
                 if ( tag.getInt("CustomModelData") == 3 ) {
                     EntityScytheProjectileBronze shot = new EntityScytheProjectileBronze(DreadsteelEntities.SCYTHE_PROJECTILE_BRONZE.get(), player.level, player, totalDmg);
-                    //Vec3 vector3d = player.getLookAngle();
-                    //Vector3f vector3f = new Vector3f(vector3d);
-                    shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.0F, 0.5F);
+                    Vec3 vector3d = player.getLookAngle();
+                    Vector3f vector3f = new Vector3f(vector3d);
+                    shot.shoot(vector3f.x(), vector3f.y(), vector3f.z(), 2.0F, 0.5F);
                     player.level.addFreshEntity(shot);
                 }
             }
             else {
                 EntityScytheProjectileDefault shot = new EntityScytheProjectileDefault(DreadsteelEntities.SCYTHE_PROJECTILE_DEFAULT.get(), player.level, player, totalDmg);
-                //Vec3 vector3d = player.getLookAngle();
-                //Vector3f vector3f = new Vector3f(vector3d);
-                shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.0F, 0.5F);
+                Vec3 vector3d = player.getLookAngle();
+                Vector3f vector3f = new Vector3f(vector3d);
+                shot.shoot(vector3f.x(), vector3f.y(), vector3f.z(), 2.0F, 0.5F);
                 player.level.addFreshEntity(shot);
             }
             player.level.playSound(null, player.getX(), player.getY(), player.getZ(),

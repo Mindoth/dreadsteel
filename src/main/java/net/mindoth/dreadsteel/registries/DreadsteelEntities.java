@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class DreadsteelEntities {
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Dreadsteel.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Dreadsteel.MOD_ID);
 
     public static final RegistryObject<EntityType<EntityScytheProjectileDefault>> SCYTHE_PROJECTILE_DEFAULT
             = registerEntity(EntityType.Builder.<EntityScytheProjectileDefault>of(EntityScytheProjectileDefault::new,
