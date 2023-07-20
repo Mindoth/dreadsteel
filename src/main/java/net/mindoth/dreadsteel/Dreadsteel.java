@@ -5,10 +5,9 @@ import net.mindoth.dreadsteel.message.MessageSwingArm;
 import net.mindoth.dreadsteel.registries.DreadsteelEntities;
 import net.mindoth.dreadsteel.registries.DreadsteelItems;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -33,6 +32,7 @@ public class Dreadsteel {
         if (FMLEnvironment.dist == Dist.CLIENT) {
             DreadsteelClient.registerHandlers();
         }
+        DreadsteelItems.register(modEventBus);
         addRegistries(modEventBus);
         modEventBus.addListener(this::setup);
 
@@ -40,13 +40,12 @@ public class Dreadsteel {
     }
 
     private void addRegistries(final IEventBus modEventBus) {
-        DreadsteelItems.ITEMS.register(modEventBus);
         DreadsteelEntities.ENTITIES.register(modEventBus);
         modEventBus.addListener(this::addCreative);
     }
 
-    private void addCreative(CreativeModeTabEvent.BuildContents event) {
-        if(event.getTab() == CreativeModeTabs.COMBAT) {
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if(event.getTabKey() == CreativeModeTabs.COMBAT) {
             event.accept(DreadsteelItems.DREADSTEEL_HELMET);
             event.accept(DreadsteelItems.DREADSTEEL_CHESTPLATE);
             event.accept(DreadsteelItems.DREADSTEEL_LEGGINGS);
@@ -54,7 +53,7 @@ public class Dreadsteel {
             event.accept(DreadsteelItems.DREADSTEEL_SCYTHE);
             event.accept(DreadsteelItems.DREADSTEEL_SHIELD);
         }
-        if(event.getTab() == CreativeModeTabs.COMBAT) {
+        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(DreadsteelItems.DREADSTEEL_INGOT);
             event.accept(DreadsteelItems.DEFAULT_KIT);
             event.accept(DreadsteelItems.WHITE_KIT);
@@ -80,6 +79,6 @@ public class Dreadsteel {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageSwingArm.class, MessageSwingArm::write, MessageSwingArm::read, MessageSwingArm.Handler::handle);
+        NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageSwingArm.class, MessageSwingArm::encode, MessageSwingArm::decode, MessageSwingArm.Handler::handle);
     }
 }

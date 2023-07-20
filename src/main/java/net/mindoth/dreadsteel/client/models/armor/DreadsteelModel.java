@@ -1,6 +1,7 @@
 package net.mindoth.dreadsteel.client.models.armor;
 
 import net.mindoth.dreadsteel.Dreadsteel;
+import net.mindoth.shadowizardlib.client.models.ArmorModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -8,13 +9,12 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ArmorItem;
 
-public class DreadsteelModel<T extends Entity> extends ArmorModel {
+public class DreadsteelModel extends ArmorModel {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Dreadsteel.MOD_ID, "dreadsteel_armor"), "main");
-
-    public DreadsteelModel(ModelPart part) {
-        super(part);
+    public DreadsteelModel(ModelPart part, ArmorItem.Type type) {
+        super(part, type);
     }
 
     public static LayerDefinition createBodyLayer() {

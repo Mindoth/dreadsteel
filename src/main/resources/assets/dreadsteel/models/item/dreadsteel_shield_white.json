@@ -1,6 +1,6 @@
 {
   "gui_light": "front",
-  "loader": "forge:separate-perspective",
+  "loader": "forge:separate_transforms",
   "base": {
     "credit": "Made with Blockbench",
     "texture_size": [64, 64],
@@ -570,52 +570,20 @@
     ],
     "display": {
       "thirdperson_righthand": {
-        "rotation": [
-          0,
-          -90,
-          0
-        ],
-        "translation": [
-          2.25,
-          -2,
-          3.25
-        ]
+        "rotation": [ 0, -90, 0 ],
+        "translation": [ 3, -2, 3.25 ]
       },
       "thirdperson_lefthand": {
-        "rotation": [
-          0,
-          -90,
-          0
-        ],
-        "translation": [
-          2.25,
-          -2,
-          3.25
-        ]
+        "rotation": [ 0, -90, 0 ],
+        "translation": [ 3, -2, 3.25 ]
       },
       "firstperson_righthand": {
-        "rotation": [
-          0,
-          -71.25,
-          19.5
-        ],
-        "translation": [
-          4.5,
-          -2.5,
-          0
-        ]
+        "rotation": [ 0, 0, -5 ],
+        "translation": [ -3, -8, 1 ]
       },
       "firstperson_lefthand": {
-        "rotation": [
-          0,
-          -71.25,
-          19.5
-        ],
-        "translation": [
-          4.5,
-          -2.5,
-          0
-        ]
+        "rotation": [ 0, 0, -5 ],
+        "translation": [ -3, -8, 1 ]
       }
     },
     "groups": [

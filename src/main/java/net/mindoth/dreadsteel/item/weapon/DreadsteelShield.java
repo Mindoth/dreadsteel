@@ -52,7 +52,7 @@ public class DreadsteelShield extends ShieldItem {
     public static void onArrowHit(final LivingAttackEvent event) {
         if ( event.getEntity() instanceof Player) {
             Player player = (Player)event.getEntity();
-            Level world = player.level;
+            Level world = player.level();
             //Check if Shield is blocking
             if ( player.isBlocking() && player.getUseItem().getItem() == DreadsteelItems.DREADSTEEL_SHIELD.get() ) {
                 //Disintegrate arrows that would hit you
@@ -60,9 +60,9 @@ public class DreadsteelShield extends ShieldItem {
                     if ( !world.isClientSide ) {
                         Entity attacker = event.getSource().getDirectEntity();
                         //Sound
-                        attacker.level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(),
+                        attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(),
                                 SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1, 1);
-                        attacker.level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(),
+                        attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(),
                                 SoundEvents.IRON_GOLEM_HURT, SoundSource.PLAYERS, 0.5F, 1);
                         //Particles
                         ServerLevel level = (ServerLevel)world;

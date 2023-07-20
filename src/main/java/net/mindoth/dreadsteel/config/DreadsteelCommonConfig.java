@@ -13,6 +13,7 @@ public class DreadsteelCommonConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ARMOR_TOUGHNESS;
     public static final ForgeConfigSpec.ConfigValue<Double> ARMOR_KNOCKBACK_RESISTANCE;
     public static final ForgeConfigSpec.ConfigValue<Integer> SCYTHE_DAMAGE;
+    public static final ForgeConfigSpec.ConfigValue<Double> SCYTHE_SPEED;
 
     static {
         BUILDER.push("Configs for Dreadsteel");
@@ -35,8 +36,11 @@ public class DreadsteelCommonConfig {
         ARMOR_KNOCKBACK_RESISTANCE = BUILDER.comment("Dreadsteel armor piece knockback resistance (Default = 0.25)")
                 .define("Armor knockback resistance", 0.25D);
 
-        SCYTHE_DAMAGE = BUILDER.comment("Dreadsteel Scythe's attack damage (also Projectile's damage) (Default = 50)")
-                .define("Scythe attack damage", 50);
+        SCYTHE_DAMAGE = BUILDER.comment("Dreadsteel Scythe's attack damage. Note that +1 damage comes from your hand so 49 = 50 damage on tootltip (Default = 49)")
+                .define("Scythe attack damage", 49);
+
+        SCYTHE_SPEED = BUILDER.comment("Dreadsteel Scythe's attack speed (Default = 1.6)")
+                .define("Scythe attack speed", 1.6);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

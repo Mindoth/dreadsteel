@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -39,7 +40,7 @@ public class RenderScytheProjectileWhite extends EntityRenderer<EntityScytheProj
         //matrixStackIn.mulPose(new Quaternion(Axis.YP, 0F, true));
         //matrixStackIn.mulPose(new Quaternion(Axis.ZN, (entityIn.tickCount + partialTicks) * 30F, true));
         matrixStackIn.translate(0, -0.15F, 0);
-        Minecraft.getInstance().getItemRenderer().renderStatic(PROJECTILE, ItemTransforms.TransformType.GROUND, 240, 0, matrixStackIn, bufferIn, 0);
+        Minecraft.getInstance().getItemRenderer().renderStatic(PROJECTILE, ItemDisplayContext.GROUND, 240, 0, matrixStackIn, bufferIn, entityIn.level(), 0);
         matrixStackIn.popPose();
     }
 }

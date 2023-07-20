@@ -1,6 +1,6 @@
 {
   "gui_light": "front",
-  "loader": "forge:separate-perspective",
+  "loader": "forge:separate_transforms",
   "base": {
     "credit": "Made with Blockbench",
     "texture_size": [64, 64],

@@ -11,7 +11,6 @@ import java.util.function.Supplier;
 public class MessageSwingArm {
 
     public MessageSwingArm() {
-
     }
 
     public static class Handler {
@@ -28,10 +27,10 @@ public class MessageSwingArm {
     }
 
 
-    public static MessageSwingArm read(FriendlyByteBuf buf) {
+    public static MessageSwingArm decode(FriendlyByteBuf buf) {
         return new MessageSwingArm();
     }
 
-    public static void write(MessageSwingArm message, FriendlyByteBuf buf) {
+    public static void encode(MessageSwingArm message, FriendlyByteBuf buf) {
     }
 }
