@@ -4,6 +4,7 @@ import net.mindoth.dreadsteel.config.DreadsteelCommonConfig;
 import net.mindoth.dreadsteel.registries.DreadsteelEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 
@@ -24,14 +26,14 @@ public class EntityScytheProjectileBlack extends AbstractArrow {
 
     public EntityScytheProjectileBlack(EntityType<? extends AbstractArrow> type, Level worldIn) {
         super(type, worldIn);
-        this.setBaseDamage(DreadsteelCommonConfig.SCYTHE_DAMAGE.get());
+        this.setBaseDamage(DreadsteelCommonConfig.SCYTHE_DAMAGE.get() + 1);
     }
 
     public EntityScytheProjectileBlack(EntityType<? extends AbstractArrow> type, Level worldIn, double x, double y, double z,
                                          float r, float g, float b) {
         this(type, worldIn);
         this.setPos(x, y, z);
-        this.setBaseDamage(DreadsteelCommonConfig.SCYTHE_DAMAGE.get());
+        this.setBaseDamage(DreadsteelCommonConfig.SCYTHE_DAMAGE.get() + 1);
     }
 
     public EntityScytheProjectileBlack(EntityType<? extends AbstractArrow> type, Level worldIn, LivingEntity shooter, double dmg) {
@@ -57,8 +59,10 @@ public class EntityScytheProjectileBlack extends AbstractArrow {
     public void tick() {
         super.tick();
 
-        if ( this.tickCount > 5 ) {
+        if ( this.tickCount == 80 ) {
             spawnParticles();
+        }
+        else if ( this.tickCount > 80 ) {
             this.playSound(SoundEvents.ILLUSIONER_MIRROR_MOVE, 1, 1);
             this.discard();
         }
@@ -75,19 +79,16 @@ public class EntityScytheProjectileBlack extends AbstractArrow {
     }
 
     @Override
-    protected void onHit(HitResult result) {
-        Entity thrower = getOwner();
-        if (level.isClientSide || result.getType() == HitResult.Type.ENTITY && ((EntityHitResult) result).getEntity() == thrower) {
-            return;
+    protected void onHitEntity(EntityHitResult result) {
+        Entity entity = result.getEntity();
+        if ( entity instanceof LivingEntity && entity != this.getOwner() ) {
+            entity.hurt(DamageSource.indirectMagic(this, this.getOwner()).bypassArmor().bypassMagic(), (float)this.getBaseDamage());
         }
+    }
 
-        if (result.getType() == HitResult.Type.ENTITY && ((EntityHitResult) result).getEntity() instanceof Mob entity) {
-            if (entity != this.getOwner()) {
-                entity.hurt(DamageSource.indirectMagic(this, this.getOwner()).bypassArmor().bypassMagic(), (float)this.getBaseDamage());
-            }
-        }
-
-        if (result.getType() == HitResult.Type.BLOCK) {
+    @Override
+    protected void onHitBlock(BlockHitResult result) {
+        if ( !this.level.isClientSide ) {
             spawnParticles();
             this.playSound(SoundEvents.ILLUSIONER_MIRROR_MOVE, 1, 1);
             this.discard();
@@ -95,9 +96,12 @@ public class EntityScytheProjectileBlack extends AbstractArrow {
     }
 
     private void spawnParticles() {
-        //Particles
-        for (int i = 0; i < 8; ++i) {
-            this.level.addParticle(ParticleTypes.SNEEZE, this.getX(), this.getY() + 0.5f, this.getZ(), (this.random.nextDouble() - 0.5D) * 1.5D, -this.random.nextDouble() + 1, (this.random.nextDouble() - 0.5D) * 1.5D);
+        if ( !this.level.isClientSide ) {
+            Vec3 center = this.getBoundingBox().getCenter();
+            ServerLevel level = (ServerLevel)this.level;
+            for ( int i = 0; i < 8; ++i ) {
+                level.sendParticles(ParticleTypes.SNEEZE, center.x, center.y, center.z, 1, 0, 0, 0, 1);
+            }
         }
     }
 

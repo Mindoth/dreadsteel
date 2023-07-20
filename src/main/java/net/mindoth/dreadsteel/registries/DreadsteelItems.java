@@ -47,19 +47,19 @@ public class DreadsteelItems {
     public static final RegistryObject<Item> DREADSTEEL_INGOT = ITEMS.register("dreadsteel_ingot",
             () -> new DreadsteelIngot(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS).fireResistant()));
     public static final RegistryObject<Item> DREADSTEEL_HELMET = ITEMS.register("dreadsteel_helmet",
-            () -> new DreadsteelArmor(DreadsteelArmor.MaterialDreadsteel.DREADSTEEL, EquipmentSlot.HEAD, itemBuilder().fireResistant()));
+            () -> new DreadsteelArmor(DreadsteelArmor.MaterialDreadsteel.DREADSTEEL, EquipmentSlot.HEAD, itemBuilder()));
     public static final RegistryObject<Item> DREADSTEEL_CHESTPLATE = ITEMS.register("dreadsteel_chestplate",
-            () -> new DreadsteelArmor(DreadsteelArmor.MaterialDreadsteel.DREADSTEEL, EquipmentSlot.CHEST, itemBuilder().fireResistant()));
+            () -> new DreadsteelArmor(DreadsteelArmor.MaterialDreadsteel.DREADSTEEL, EquipmentSlot.CHEST, itemBuilder()));
     public static final RegistryObject<Item> DREADSTEEL_LEGGINGS = ITEMS.register("dreadsteel_leggings",
-            () -> new DreadsteelArmor(DreadsteelArmor.MaterialDreadsteel.DREADSTEEL, EquipmentSlot.LEGS, itemBuilder().fireResistant()));
+            () -> new DreadsteelArmor(DreadsteelArmor.MaterialDreadsteel.DREADSTEEL, EquipmentSlot.LEGS, itemBuilder()));
     public static final RegistryObject<Item> DREADSTEEL_BOOTS = ITEMS.register("dreadsteel_boots",
-            () -> new DreadsteelArmor(DreadsteelArmor.MaterialDreadsteel.DREADSTEEL, EquipmentSlot.FEET, itemBuilder().fireResistant()));
+            () -> new DreadsteelArmor(DreadsteelArmor.MaterialDreadsteel.DREADSTEEL, EquipmentSlot.FEET, itemBuilder()));
 
     public static final RegistryObject<Item> DREADSTEEL_SCYTHE = ITEMS.register("dreadsteel_scythe",
-            () -> new DreadsteelScythe(DreadsteelTier.DREADSTEEL, 0, 0, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT).stacksTo(1).fireResistant()));
+            () -> new DreadsteelScythe(DreadsteelTier.DREADSTEEL, 0, -2.4f, itemBuilder()));
     public static final RegistryObject<Item> DREADSTEEL_SHIELD = ITEMS.register("dreadsteel_shield", DreadsteelShield::new);
 
     private static Item.Properties itemBuilder() {
-        return new Item.Properties().tab(CreativeModeTab.TAB_COMBAT);
+        return new Item.Properties().tab(CreativeModeTab.TAB_COMBAT).fireResistant();
     }
 }
