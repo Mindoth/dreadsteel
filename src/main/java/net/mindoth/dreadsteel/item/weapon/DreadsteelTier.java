@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 public enum DreadsteelTier implements IItemTier {
 
-    DREADSTEEL(4, 0, 9.0F, 50F, 22,
+    DREADSTEEL(4, 0, 9.0F, 7F, 22,
             () -> Ingredient.of(DreadsteelItems.DREADSTEEL_INGOT.get()));
     private final int level;
     private final int uses;

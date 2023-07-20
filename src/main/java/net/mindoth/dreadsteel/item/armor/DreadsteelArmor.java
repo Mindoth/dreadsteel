@@ -51,51 +51,37 @@ public class DreadsteelArmor extends ArmorItem {
         ItemStack stack = event.getItemStack();
         Item item = stack.getItem();
 
-        if (DreadsteelCommonConfig.ARMOR_STATS_CHECK.get()) {
-            if (item == DreadsteelItems.DREADSTEEL_HELMET.get() && event.getSlotType() == EquipmentSlotType.HEAD) {
-                event.removeAttribute(Attributes.ARMOR);
-                event.removeAttribute(Attributes.ARMOR_TOUGHNESS);
-                event.removeAttribute(Attributes.KNOCKBACK_RESISTANCE);
-                event.addModifier(Attributes.ARMOR, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_armor",
-                        DreadsteelCommonConfig.HELMET_ARMOR.get(), AttributeModifier.Operation.ADDITION));
-                event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_toughness",
-                        DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
-                event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance",
-                        DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
-            }
-            if (item == DreadsteelItems.DREADSTEEL_CHESTPLATE.get() && event.getSlotType() == EquipmentSlotType.CHEST) {
-                event.removeAttribute(Attributes.ARMOR);
-                event.removeAttribute(Attributes.ARMOR_TOUGHNESS);
-                event.removeAttribute(Attributes.KNOCKBACK_RESISTANCE);
-                event.addModifier(Attributes.ARMOR, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_armor",
-                        DreadsteelCommonConfig.CHESTPLATE_ARMOR.get(), AttributeModifier.Operation.ADDITION));
-                event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_toughness",
-                        DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
-                event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance",
-                        DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
-            }
-            if (item == DreadsteelItems.DREADSTEEL_LEGGINGS.get() && event.getSlotType() == EquipmentSlotType.LEGS) {
-                event.removeAttribute(Attributes.ARMOR);
-                event.removeAttribute(Attributes.ARMOR_TOUGHNESS);
-                event.removeAttribute(Attributes.KNOCKBACK_RESISTANCE);
-                event.addModifier(Attributes.ARMOR, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_armor",
-                        DreadsteelCommonConfig.LEGGINGS_ARMOR.get(), AttributeModifier.Operation.ADDITION));
-                event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_toughness",
-                        DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
-                event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance",
-                        DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
-            }
-            if (item == DreadsteelItems.DREADSTEEL_BOOTS.get() && event.getSlotType() == EquipmentSlotType.FEET) {
-                event.removeAttribute(Attributes.ARMOR);
-                event.removeAttribute(Attributes.ARMOR_TOUGHNESS);
-                event.removeAttribute(Attributes.KNOCKBACK_RESISTANCE);
-                event.addModifier(Attributes.ARMOR, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_armor",
-                        DreadsteelCommonConfig.BOOTS_ARMOR.get(), AttributeModifier.Operation.ADDITION));
-                event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_toughness",
-                        DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
-                event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance",
-                        DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
-            }
+        if ( item == DreadsteelItems.DREADSTEEL_HELMET.get() && event.getSlotType() == EquipmentSlotType.HEAD ) {
+            event.addModifier(Attributes.ARMOR, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_armor", DreadsteelCommonConfig.HELMET_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+            event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
+            event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
+        }
+        if ( item == DreadsteelItems.DREADSTEEL_CHESTPLATE.get() && event.getSlotType() == EquipmentSlotType.CHEST ) {
+            event.addModifier(Attributes.ARMOR, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_armor", DreadsteelCommonConfig.CHESTPLATE_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+            event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
+            event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
+        }
+        if ( item == DreadsteelItems.DREADSTEEL_LEGGINGS.get() && event.getSlotType() == EquipmentSlotType.LEGS ) {
+            event.addModifier(Attributes.ARMOR, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_armor", DreadsteelCommonConfig.LEGGINGS_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+            event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
+            event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
+        }
+        if ( item == DreadsteelItems.DREADSTEEL_BOOTS.get() && event.getSlotType() == EquipmentSlotType.FEET ) {
+            event.addModifier(Attributes.ARMOR, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_armor", DreadsteelCommonConfig.BOOTS_ARMOR.get(), AttributeModifier.Operation.ADDITION));
+            event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_toughness", DreadsteelCommonConfig.ARMOR_TOUGHNESS.get(), AttributeModifier.Operation.ADDITION));
+            event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
+                    DreadsteelArmor.getUUID(stack), "dreadsteel_knockback_resistance", DreadsteelCommonConfig.ARMOR_KNOCKBACK_RESISTANCE.get(), AttributeModifier.Operation.ADDITION));
         }
     }
 
@@ -358,12 +344,12 @@ public class DreadsteelArmor extends ArmorItem {
 
     public enum MaterialDreadsteel implements IArmorMaterial {
 
-        DREADSTEEL("dreadsteel", 0, new int[] { 9, 12, 15, 10 }, 25, SoundEvents.ARMOR_EQUIP_NETHERITE,
-                8, 0.25F, () -> {
+        DREADSTEEL("dreadsteel", 0, new int[] { 0, 0, 0, 0 }, 25, SoundEvents.ARMOR_EQUIP_NETHERITE,
+                0, 0F, () -> {
             return Ingredient.of(DreadsteelItems.DREADSTEEL_INGOT.get());
         });
 
-        private static final int[] MAX_DAMAGE_ARRAY = new int[] { 9, 12, 15, 10 };
+        private static final int[] MAX_DAMAGE_ARRAY = new int[] { 0, 0, 0, 0 };
         private final String name;
         private final int maxDamageFactor;
         private final int[] damageReductionAmountArray;

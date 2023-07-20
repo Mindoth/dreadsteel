@@ -36,8 +36,8 @@ public class RenderScytheProjectileBronze extends EntityRenderer<EntityScythePro
         matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.xRotO, entityIn.xRot)));
         matrixStackIn.translate(0, 0.5F, 0);
         matrixStackIn.scale(2F, 2F, 2F);
-        matrixStackIn.mulPose(new Quaternion(Vector3f.YP, 0F, true));
-        matrixStackIn.mulPose(new Quaternion(Vector3f.ZN, (entityIn.tickCount + partialTicks) * 30F, true));
+        //matrixStackIn.mulPose(new Quaternion(Vector3f.YP, 0F, true));
+        //matrixStackIn.mulPose(new Quaternion(Vector3f.ZN, (entityIn.tickCount + partialTicks) * 30F, true));
         matrixStackIn.translate(0, -0.15F, 0);
         Minecraft.getInstance().getItemRenderer().renderStatic(PROJECTILE, ItemCameraTransforms.TransformType.GROUND, 240, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         matrixStackIn.popPose();
