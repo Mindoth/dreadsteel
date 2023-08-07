@@ -579,11 +579,11 @@
 	  },
       "firstperson_righthand": {
 		  "rotation": [ 0, 0, 5 ],
-		  "translation": [ -6, 0, 0 ]
+		  "translation": [ -6, -4, 0 ]
 	  },
       "firstperson_lefthand": {
 		  "rotation": [ 0, 0, 5 ],
-		  "translation": [ -6, 0, 0 ]
+		  "translation": [ -6, -4, 0 ]
 	  }
     },
     "groups": [
