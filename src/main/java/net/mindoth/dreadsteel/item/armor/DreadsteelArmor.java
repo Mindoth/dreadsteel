@@ -94,7 +94,7 @@ public class DreadsteelArmor extends ArmorItem {
 
     public enum MaterialDreadsteel implements ArmorMaterial {
 
-        DREADSTEEL("dreadsteel", 0, Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+        DREADSTEEL("dreadsteel", 10, Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
             map.put(ArmorItem.Type.BOOTS, 0);
             map.put(ArmorItem.Type.LEGGINGS, 0);
             map.put(ArmorItem.Type.CHESTPLATE, 0);
