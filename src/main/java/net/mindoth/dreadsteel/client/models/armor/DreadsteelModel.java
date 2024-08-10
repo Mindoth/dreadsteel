@@ -1,14 +1,10 @@
 package net.mindoth.dreadsteel.client.models.armor;
 
-import net.mindoth.dreadsteel.Dreadsteel;
 import net.mindoth.shadowizardlib.client.models.ArmorModel;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ArmorItem;
 
 public class DreadsteelModel extends ArmorModel {

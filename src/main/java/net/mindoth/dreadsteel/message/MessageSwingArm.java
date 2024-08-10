@@ -20,7 +20,7 @@ public class MessageSwingArm {
         public static void handle(MessageSwingArm message, Supplier<NetworkEvent.Context> context) {
             context.get().setPacketHandled(true);
             Player player = context.get().getSender();
-            if (player != null) {
+            if ( player != null ) {
                 DreadsteelScythe.onLeftClick(player, player.getItemInHand(InteractionHand.MAIN_HAND));
             }
         }

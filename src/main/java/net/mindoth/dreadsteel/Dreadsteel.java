@@ -45,7 +45,7 @@ public class Dreadsteel {
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.COMBAT) {
+        if ( event.getTabKey() == CreativeModeTabs.COMBAT ) {
             event.accept(DreadsteelItems.DREADSTEEL_HELMET);
             event.accept(DreadsteelItems.DREADSTEEL_CHESTPLATE);
             event.accept(DreadsteelItems.DREADSTEEL_LEGGINGS);
@@ -53,7 +53,7 @@ public class Dreadsteel {
             event.accept(DreadsteelItems.DREADSTEEL_SCYTHE);
             event.accept(DreadsteelItems.DREADSTEEL_SHIELD);
         }
-        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+        if ( event.getTabKey() == CreativeModeTabs.INGREDIENTS ) {
             event.accept(DreadsteelItems.DREADSTEEL_INGOT);
             event.accept(DreadsteelItems.DEFAULT_KIT);
             event.accept(DreadsteelItems.WHITE_KIT);

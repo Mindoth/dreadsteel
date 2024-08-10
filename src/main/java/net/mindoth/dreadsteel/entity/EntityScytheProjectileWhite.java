@@ -2,24 +2,19 @@ package net.mindoth.dreadsteel.entity;
 
 import net.mindoth.dreadsteel.config.DreadsteelCommonConfig;
 import net.mindoth.dreadsteel.registries.DreadsteelEntities;
-import net.mindoth.shadowizardlib.event.CommonEvents;
+import net.mindoth.shadowizardlib.event.ShadowEvents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
@@ -98,7 +93,7 @@ public class EntityScytheProjectileWhite extends AbstractArrow {
 
     private void spawnParticles() {
         if ( !this.level().isClientSide ) {
-            Vec3 center = CommonEvents.getEntityCenter(this);
+            Vec3 center = ShadowEvents.getEntityCenter(this);
             ServerLevel level = (ServerLevel) this.level();
             for ( int i = 0; i < 8; ++i ) {
                 level.sendParticles(ParticleTypes.FIREWORK, center.x, center.y, center.z, 1, 0, 0, 0, 1);
