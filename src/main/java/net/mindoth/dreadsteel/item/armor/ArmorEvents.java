@@ -107,7 +107,7 @@ public class ArmorEvents {
         if ( isDyeableDreadsteelItem(leftStack.getItem()) ) {
             ItemStack result = leftStack.copy();
             CompoundTag newTag = result.getOrCreateTag();
-            if ( rightItem instanceof CosmeticKit) {
+            if ( rightItem instanceof CosmeticKit ) {
                 if ( rightItem == DreadsteelItems.DEFAULT_KIT.get() ) newTag.remove("CustomModelData");
                 else if ( rightItem == DreadsteelItems.WHITE_KIT.get() ) newTag.putInt("CustomModelData", 1);
                 else if ( rightItem == DreadsteelItems.BLACK_KIT.get() ) newTag.putInt("CustomModelData", 2);
@@ -133,6 +133,7 @@ public class ArmorEvents {
     }
 
     private static boolean isDyeableDreadsteelItem(Item item) {
-        return (item instanceof ArmorItem armorItem && armorItem.getMaterial().equals(DreadsteelArmor.MaterialDreadsteel.DREADSTEEL)) || item == DreadsteelItems.DREADSTEEL_SCYTHE.get();
+        return (item instanceof ArmorItem armorItem && armorItem.getMaterial().equals(DreadsteelArmor.MaterialDreadsteel.DREADSTEEL))
+                || item == DreadsteelItems.DREADSTEEL_SCYTHE.get() || item == DreadsteelItems.DREADSTEEL_SHIELD.get();
     }
 }

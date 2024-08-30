@@ -16,15 +16,15 @@ public enum DreadsteelTier implements Tier {
     private final float speed;
     private final float damage;
     private final int enchantmentValue;
-    private final Supplier<Ingredient> repaierMaterial;
+    private final Supplier<Ingredient> repairMaterial;
 
-    DreadsteelTier(float damage, int enchantmentValue, int level, float speed, int uses, Supplier<Ingredient> repaierMaterial) {
+    DreadsteelTier(float damage, int enchantmentValue, int level, float speed, int uses, Supplier<Ingredient> repairMaterial) {
         this.damage = damage;
         this.enchantmentValue = enchantmentValue;
         this.level = level;
         this.speed = speed;
         this.uses = uses;
-        this.repaierMaterial = repaierMaterial;
+        this.repairMaterial = repairMaterial;
     }
 
     @Override
@@ -54,6 +54,6 @@ public enum DreadsteelTier implements Tier {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return this.repaierMaterial.get();
+        return this.repairMaterial.get();
     }
 }

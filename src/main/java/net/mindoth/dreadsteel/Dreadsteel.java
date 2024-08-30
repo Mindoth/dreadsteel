@@ -29,7 +29,7 @@ public class Dreadsteel {
 
     public Dreadsteel() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        if (FMLEnvironment.dist == Dist.CLIENT) {
+        if ( FMLEnvironment.dist == Dist.CLIENT ) {
             DreadsteelClient.registerHandlers();
         }
         DreadsteelItems.register(modEventBus);
