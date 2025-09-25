@@ -33,6 +33,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
@@ -125,21 +126,21 @@ public class DreadsteelScythe extends SwordItem {
                     //Vec3 vector3d = player.getLookAngle();
                     //Vector3f vector3f = new Vector3f(vector3d);
                     shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.0F, 0.0F);
-                    player.level().addFreshEntity(shot);
+                    ServerLifecycleHooks.getCurrentServer().submit(() -> player.level().addFreshEntity(shot));
                 }
                 if ( tag.getInt("CustomModelData") == 2 ) {
                     EntityScytheProjectileBlack shot = new EntityScytheProjectileBlack(DreadsteelEntities.SCYTHE_PROJECTILE_BLACK.get(), player.level(), player, totalDmg);
                     //Vec3 vector3d = player.getLookAngle();
                     //Vector3f vector3f = new Vector3f(vector3d);
                     shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.0F, 0.0F);
-                    player.level().addFreshEntity(shot);
+                    ServerLifecycleHooks.getCurrentServer().submit(() -> player.level().addFreshEntity(shot));
                 }
                 if ( tag.getInt("CustomModelData") == 3 ) {
                     EntityScytheProjectileBronze shot = new EntityScytheProjectileBronze(DreadsteelEntities.SCYTHE_PROJECTILE_BRONZE.get(), player.level(), player, totalDmg);
                     //Vec3 vector3d = player.getLookAngle();
                     //Vector3f vector3f = new Vector3f(vector3d);
                     shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.0F, 0.0F);
-                    player.level().addFreshEntity(shot);
+                    ServerLifecycleHooks.getCurrentServer().submit(() -> player.level().addFreshEntity(shot));
                 }
             }
             else {
@@ -147,7 +148,7 @@ public class DreadsteelScythe extends SwordItem {
                 //Vec3 vector3d = player.getLookAngle();
                 //Vector3f vector3f = new Vector3f(vector3d);
                 shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.0F, 0.0F);
-                player.level().addFreshEntity(shot);
+                ServerLifecycleHooks.getCurrentServer().submit(() -> player.level().addFreshEntity(shot));
             }
             player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
                     SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 0.75f, 0.75f);
