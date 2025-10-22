@@ -5,14 +5,12 @@ import net.mindoth.dreadsteel.Dreadsteel;
 import net.mindoth.dreadsteel.config.DreadsteelCommonConfig;
 import net.mindoth.dreadsteel.entity.EntityScytheProjectileBlack;
 import net.mindoth.dreadsteel.entity.EntityScytheProjectileBronze;
+import net.mindoth.dreadsteel.entity.EntityScytheProjectileDefault;
 import net.mindoth.dreadsteel.entity.EntityScytheProjectileWhite;
 import net.mindoth.dreadsteel.message.MessageSwingArm;
 import net.mindoth.dreadsteel.registries.DreadsteelEntities;
-import net.mindoth.dreadsteel.entity.EntityScytheProjectileDefault;
 import net.mindoth.dreadsteel.registries.DreadsteelItems;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -23,18 +21,18 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.server.ServerLifecycleHooks;
-import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -45,7 +43,9 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = Dreadsteel.MOD_ID)
 public class DreadsteelScythe extends SwordItem {
     static final Map<Item, Map<Attribute, AttributeModifier>> WEAPON_ATTRIBUTE_MODIFIERS = new HashMap<>();
+    @SuppressWarnings("removal")
     private static final String ATTACK_DAMAGE_MODIFIER_NAME = new ResourceLocation(Dreadsteel.MOD_ID, "dreadsteel_attack").toString();
+    @SuppressWarnings("removal")
     private static final String ATTACK_SPEED_MODIFIER_NAME = new ResourceLocation(Dreadsteel.MOD_ID, "dreadsteel_speed").toString();
 
     public DreadsteelScythe(DreadsteelTier p_i48460_1_, int p_i48460_2_, float p_i48460_3_, Properties p_i48460_4_) {
@@ -97,23 +97,17 @@ public class DreadsteelScythe extends SwordItem {
 
     @SubscribeEvent
     public static void onPlayerLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
-        onLeftClick(event.getEntity(), event.getItemStack());
-        if (event.getLevel().isClientSide) {
-            Dreadsteel.sendMSGToServer(new MessageSwingArm());
-        }
+        if ( event.getLevel().isClientSide ) Dreadsteel.sendMSGToServer(new MessageSwingArm());
+        else onLeftClick(event.getEntity(), event.getItemStack());
     }
 
     public static void onLeftClick(final Player playerEntity, final ItemStack stack) {
-        if ( stack.getItem() == DreadsteelItems.DREADSTEEL_SCYTHE.get() ) {
-            DreadsteelScythe.spawnProjectile(stack, playerEntity);
-        }
+        if ( stack.getItem() == DreadsteelItems.DREADSTEEL_SCYTHE.get() ) DreadsteelScythe.spawnProjectile(stack, playerEntity);
     }
 
     public static void spawnProjectile(ItemStack stack, Player player) {
         CompoundTag tag = stack.getOrCreateTag();
-        if ( player.swingTime > 0.5F ) {
-            return;
-        }
+        if ( player.swingTime > 0.5F ) return;
         if ( player.getItemInHand(InteractionHand.MAIN_HAND) == stack ) {
             final Multimap<Attribute, AttributeModifier> dmg = stack.getAttributeModifiers(EquipmentSlot.MAINHAND);
             double totalDmg = 0D;
